@@ -1,6 +1,7 @@
 {
     "name": "duanestorey/crossroads",
     "description": "Crossroads Static Site Generator",
+    "license": "GPL-3.0-or-later",
     "require": {
         "php": ">=8.2",
         "symfony/yaml": "^7.1",
