@@ -1,2 +1,2 @@
-# crossroads
-Crossroads Static Site Generator
+# Crossroads Static Site Generator
+
