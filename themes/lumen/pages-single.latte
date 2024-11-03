@@ -1,0 +1,26 @@
+{include 'header.latte'}
+
+    <div class="container mt-4">
+        <article>    
+            <h1 class="mt-4">{$content->title}</h1>
+
+            <div class="content mt-3">
+                {if $content->featured_image}
+                    <div class="mt-4 mb-4">
+                        <picture>
+                            {if $content->featured_image->has_responsive}
+                                {foreach $content->featured_image->responsive_images as $size => $image}
+                                <source media="(max-width: {$size}px)" srcset="{$image->url}">
+                                {/foreach}
+                                <source media="(min-width: {$content->featured_image->responsive_largest_size+1}px)" srcset="{$content->featured_image->url}">
+                            {/if}
+                            <img src="{$content->featured_image->url}" width="{$content->featured_image->width}" height="{$content->featured_image->height}" alt="Featured Image" class="img-fluid">
+                        </picture>
+                    </div>
+                {/if}
+                {$content->markdown_html|noescape}
+            </div>
+        </article>
+    </div>
+
+{include 'footer.latte'}

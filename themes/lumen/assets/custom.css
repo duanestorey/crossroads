@@ -1,0 +1,98 @@
+.container .content img.img-thumbnail {
+    float: left;
+    max-width: 230px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+article {
+    clear: both;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px;
+    }
+
+
+}
+
+@media (min-width: 1200px) {
+    .container .content img.img-thumbnail {
+        max-width: 350px;
+    }
+}
+
+.caption {
+    display: block;
+}
+
+.container .content img {
+    max-width: 100%;
+}
+
+.meta {
+    margin-top: -5px;
+    font-size: 0.8em;
+}
+
+article {
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 20px;
+}
+
+.jumbotron {
+    background-image: linear-gradient( 
+        rgba(0,0,0,0.4),
+        rgba(0,0,0,0.4) ), 
+        url( '/assets/final-road-opt.avif' );
+    background-size: cover;
+    background-position: bottom center;
+    min-height: 550px;
+    padding-bottom: 10px;
+}
+
+.jumbotron h1 {
+    padding-top: 70px;
+    color: white;
+}
+
+.jumbotron h4 {
+    color: white;
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+.things-about-me {
+    color: white;
+    margin-top: 30px;
+}
+
+.things-about-me .col-sm em {
+    background: rgba( 0, 0, 0, 0.3 );
+    display: block;
+    font-style: normal;
+    padding: 8px;
+    border-radius: 3px;
+    min-height: 170px;
+}
+
+.things-about-me .col-sm a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+footer {
+    font-weight: 100;
+}
+
+@media (max-width: 576px) { 
+    .things-about-me .col-sm em {
+        min-height: inherit;
+    }
+
+    .jumbotron h1 {
+        padding-top: 20px;
+    }
+}

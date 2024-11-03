@@ -1,0 +1,41 @@
+{include 'header.latte'}
+
+    <div class="container mt-4">
+        <article>    
+            <h1 class="mt-4">{$content->title}</h1>
+            <div class="meta mb-2 text-primary fs-6 fw-light">
+                 Published on <time>{$content->publish_date|date:'F jS, Y'}</time>
+            </div>
+
+            <div class="content mt-3">
+                {if $content->featured_image}
+                    <div class="mt-4 mb-4">
+                        <picture>
+                            {if $content->featured_image->has_responsive}
+                                {foreach $content->featured_image->responsive_images as $size => $image}
+                                <source media="(max-width: {$size}px)" srcset="{$image->url}">
+                                {/foreach}
+                                <source media="(min-width: {$content->featured_image->responsive_largest_size+1}px)" srcset="{$content->featured_image->url}">
+                            {/if}
+                            <img src="{$content->featured_image->url}" width="{$content->featured_image->width}" height="{$content->featured_image->height}" alt="Featured Image" class="img-fluid">
+                        </picture>
+                    </div>
+                {/if}
+                {$content->markdown_html|noescape}
+
+                {if $content->taxonomy}
+                    <div class="tax">
+                    {foreach $content->taxonomy as $tax}
+                        <a href="{$content->taxonomy_links[ $tax ]}" class="btn btn-secondary btn-sm">{$tax|replace: ['-' => ' ']}</a>
+                    {/foreach}
+                    </div>
+                {/if}
+            </div>
+
+            <div class="comments mt-4 pt-4">
+                <div id="disqus_thread"></div>
+            </div>
+        </article>  
+    </div>
+
+{include 'footer.latte'}
