@@ -9,6 +9,10 @@ class MYSQL {
     public function __construct( $config ) {   
         $this->config = $config;
 
+        if ( !file_exists( CROSSROADS_DB_DIR ) ) {
+            @mkdir( CROSSROADS_DB_DIR );
+        }
+        
         $this->sql = new \SQLite3( CROSSROADS_DB_DIR . '/db.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE );
     }
 
