@@ -3,9 +3,11 @@
     "description": "Crossroads Static Site Generator",
     "license": "GPL-3.0-or-later",
     "require": {
-        "php": ">=8.2",
         "symfony/yaml": "^7.1",
         "latte/latte": "^3.0",
-       "erusev/parsedown": "^1.7"
+        "erusev/parsedown": "^1.7",
+        "league/html-to-markdown": "^5.1",
+        "scssphp/scssphp": "^1.13",
+        "mallardduck/html-formatter": "^1.0"
     }
 }
