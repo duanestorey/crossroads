@@ -64,6 +64,10 @@ class WebServer {
         }
     }
 
+    private function _add_slash( $url ) {
+        return rtrim( $url, '/' ) . '/';
+    }
+
     private function _handle_client( $socket ) {
         $input = socket_read( $socket, 8192 );
         if ( $input ) {
@@ -80,8 +84,8 @@ class WebServer {
                     $localUrl = CROSSROADS_PUBLIC_DIR . $filePath;
                     if ( is_dir( $localUrl ) ) {
                         // directory
-                        if ( file_exists( $localUrl . 'index.html' ) ) {
-                            $this->_sendFile( $socket, $localUrl . 'index.html' );
+                        if ( file_exists( $this->_add_slash( $localUrl ) . 'index.html' ) ) {
+                            $this->_sendFile( $socket, $this->_add_slash( $localUrl ) . 'index.html' );
                         }
                     } else if ( file_exists( $localUrl ) ) {
                         $this->_sendFile( $socket, $localUrl );
