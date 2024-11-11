@@ -8,7 +8,7 @@ namespace CR;
 
 require_once 'vendor/autoload.php';
 
-define( 'CROSSROADS_VERSION', '0.1.0' );
+define( 'CROSSROADS_VERSION', '0.1.9' );
 
 define( 'CROSSROADS_BASE_DIR', dirname( __FILE__ ) );
 define( 'CROSSROADS_CONTENT_SLUG', '_content' );
