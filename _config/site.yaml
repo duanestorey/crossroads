@@ -1,0 +1,44 @@
+site:
+  name: 'My Test Site'
+  url: 'https://mytestsite.com'
+  description: 'This is a test site using the Crossroads SSG'
+  home_description: 'Crossroads SSG is a state-of-the art static site generator written in PHP'
+  theme: "simple"
+  lang: "en"
+  charset: "utf-8"
+  home: "posts"
+content:
+  pages:
+    index: false
+    include_date: false
+    base: /
+    singular: "page"
+  posts:
+    index: true
+    include_date: true
+    base: "/posts"
+    singular: "post"
+    taxonomy:
+      category:
+        - "categories"
+        - "category"
+      tag:
+        - "tags"
+        - "tag"
+dirs:
+  core_themes: "core/themes"
+options:
+  debug: false
+  content_per_page: 20
+  reading_wpm: 238
+  markdown:
+    auto: false
+    open_command: "open %s"
+  browser:
+    auto: false
+    open_command: "open %s"
+  beautify_html: false
+  images:
+    convert_to_webp: false
+    generate_responsive: true
+
