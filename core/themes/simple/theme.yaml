@@ -1,10 +1,10 @@
 theme:
   name: 'Simple'
   assets:
-    lumen.css:
+    simple.css:
       - bootstrap.min.css
       - custom.scss
-    lumen.min.js:
+    simple.min.js:
       - bootstrap.bundle.min.js
       - custom.js
   images:
