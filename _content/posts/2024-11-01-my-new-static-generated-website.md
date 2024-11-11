@@ -1,5 +1,5 @@
 ---
-title: "My New Static Site Generated Website"
+title: "My New Static Generated Website"
 date: "2024-11-01"
 description: "This is my first post on my new shiny static site generator"
 categories: 
