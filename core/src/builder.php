@@ -54,7 +54,7 @@ class Builder {
 
         // load all content here
         $this->entries = new Entries( $this->config, $this->db, $this->pluginManager );
-        $this->entries->loadAllDb();
+        $this->entries->loadAll();
 
         // do all content filtering
         $all_entries = [];
