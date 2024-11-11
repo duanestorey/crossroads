@@ -1,0 +1,13 @@
+theme:
+  name: 'Lumen'
+  assets:
+    lumen.css:
+      - bootstrap.min.css
+      - custom.scss
+    lumen.min.js:
+      - bootstrap.bundle.min.js
+      - custom.js
+  images:
+    - favicon.ico
+    - final-road-opt.jpg
+    - final-road-opt.avif

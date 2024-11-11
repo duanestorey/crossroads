@@ -1,0 +1,28 @@
+core:
+  app:
+    starting: "%s %s se está iniciando"
+    exec_plugin: "Executing plugin [%s]"
+    exec_command: "Executing command [%s]"
+    finished: "Finished executing [%s] command, total time taken %0.3fs"
+    exception: "Build stopped to due exception [%s] with message [%s]"
+  build:
+    starting: "Starting static website build"
+    plugins:
+      processing: "Processing plugins for [%s]"
+    generating:
+      single: "Generating single content pages for [%s]"
+    total: "Total entries processed [%d], HTML pages generated [%d]"
+  import:
+    unknown: "Unknown importer [%s]"
+  usage:
+    build: "Builds entire website"
+    clean: "Cleans entire website"
+    serve: "Starts local webserver"
+    proper: "..Proper usage"
+    import:
+      wordpress:
+        "Imports from a WordPress website"
+  server:
+    started: "Web server successfully started at %s:%s"
+    stopping: "Shutting down web server"
+    incoming: "Incoming HTTP request from [%s]"

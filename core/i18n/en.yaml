@@ -1,0 +1,109 @@
+# -----------------------------------------------------
+# Author : Duane Storey
+# -----------------------------------------------------
+core:
+  app:
+    starting: "%s %s starting up"
+    exec_plugin: "Executing plugin [%s]"
+    exec_command: "Executing command [%s] on [%s] at [%s]"
+    finished: "Finished executing [%s] command, total time taken %0.3fs"
+    exception: "Build stopped to due exception [%s] with message [%s]"
+    log: "Log file active at [%s]"
+  build:
+    starting: "Starting static website build"
+    plugins:
+      processing: "Processing plugins for [%s]"
+      executing: "Executing plugin [%s]"
+    generating:
+      single: "Generating single content pages for [%s]"
+      index: "Generating index & paginated content for [%s]"
+      home: "Generating home content for [%s]"
+      tax: "Generating taxonomy pages for [%s]"
+      writing_tax: "Writing taxonomy for [%s]"
+    total: "Total entries processed [%d], HTML pages generated [%d]"
+    done: "Your website is now ready to view. You can run 'php crossroads serve' to view it."
+    writing: "Writing [%s]"
+  class:
+    entries:
+      reading_time:
+        s: "Less than one minute to read"
+        p: "%s minutes to read"
+      processing:
+        content: "Processing content file [%s]"
+        loading: "Loading content type [%s]"        
+    renderer:
+      output: "Outputting template file [%s]"
+    theme:
+      processing: "Processing asset [%s]"
+      adding: "Adding asset file [%s]"
+      no_source: "Unable to find source [%s]"
+      copying: "Copying static file from [%s] to [%s]"
+      sass: "Adding SASS file [%s]"
+    server:
+      started: "Web server started, please open your browser to %s:%s"
+      to_close: "To shutdown the web server, press Ctrl-C"
+      stopping: "Shutting down web server"
+      incoming: "Incoming HTTP request from [%s]"    
+      sending: Sending [%s] bytes out of [%s] 
+      response: Sending response [%s] 
+    upgrade:
+      composer: "Upgrading commposer packages"
+      cur_ver: "Your current version is [%s]"
+      next_ver: "The latest stable version is [%s]"
+      up_to_date: "You are running the latest version, no upgrade required"
+      downloading: "Downloading the latest version of Crossroads from Github"
+      unzip: "Expanding the archive"      
+  new:
+    content: "Creating new [%s]"
+    title: "Enter new title: "
+    unknown: "Unknown conetnt type [%s]"
+    created: "Created new [%s], markdown file is: %s"
+    start: "Create something beautiful today."
+  init:
+    git: "Writing .gitignore file"
+    starting: "Initializing your new Crossroads website"
+    version: "Writing version information"
+    not_needed: "Your website has previously been initialized: you're good to go!"
+    done: "Congratulations, your website is ready to go. Run 'php crossroads build' next."
+  import:
+    unknown: "Unknown importer [%s]"
+  theme:
+    load: "Loading theme [%s]"
+    loaded: "Theme successfull loaded"
+  usage:
+    build: "Builds entire website"
+    clean: "Cleans entire website"
+    serve: "Starts local webserver"
+    init: "Initialize the website (run only once)"
+    need_init: "To get started, please run the init command, 'php crossroads init'"
+    proper: "..Proper usage"
+    import:
+      wordpress:
+        "Imports from a WordPress website"
+    new:
+      content: "Creates new content of type [%s]"
+      cmd: "php crossroads new %s"
+    create:
+      plugin: "Creates a new plugin"
+      theme: "Creates a new theme"
+      child: "Creates a new child theme based on specified parent theme"
+    db:
+      import: "Regenerates the internal DB from markdown files"
+      export: "Regenerates the markdown files from internal DB"
+      sync: "Intelligently updates content and internal DB"
+    stats: "Displays website statistics"
+    upgrade: "Upgrades the core system"
+plugins:
+  image:
+    corrupt: "Corrupted image file [%s] in [%s]"
+errors:
+  no_command: "No method exists for command [%s]"
+  arg_not_understood: "Argument not understoof [%s]"
+seo:
+  home: "%s - %s"
+  home_paged: "Page %d of %d - %s"
+  content_home: "Reading '%s' - %s"
+  content_paged: "Reading '%s', Page %d of %d - %s"
+  taxonomy_home: "%s Archives for '%s' - %s"
+  taxonomy_paged: "%s Archives for '%s', Page %d of %d - %s"
+  

@@ -1,0 +1,37 @@
+<?php 
+/*
+    All code copyright (c) 2024 by Duane Storey - All rights reserved
+    You may use, distribute and modify this code under the terms of GPL version 3.0 license or later
+*/
+
+namespace CR;
+
+require_once 'vendor/autoload.php';
+
+define( 'CROSSROADS_VERSION', '0.1.0' );
+
+define( 'CROSSROADS_BASE_DIR', dirname( __FILE__ ) );
+define( 'CROSSROADS_CONTENT_SLUG', '_content' );
+define( 'CROSSROADS_CONFIG_SLUG', '_config' );
+define( 'CROSSROADS_PUBLIC_SLUG', '_public' );
+define( 'CROSSROADS_LOG_SLUG', '_logs' );
+define( 'CROSSROADS_DB_SLUG', '_db' );
+define( 'CROSSROADS_THEMES_SLUG', '_themes' );
+
+define( 'CROSSROADS_CONTENT_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_CONTENT_SLUG );
+define( 'CROSSROADS_CONFIG_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_CONFIG_SLUG );
+define( 'CROSSROADS_PUBLIC_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_PUBLIC_SLUG );
+define( 'CROSSROADS_LOG_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_LOG_SLUG );
+define( 'CROSSROADS_DB_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_DB_SLUG );
+define( 'CROSSROADS_LOCAL_THEME_DIR', CROSSROADS_BASE_DIR . '/' . CROSSROADS_THEMES_SLUG );
+
+define( 'CROSSROADS_CORE_DIR', CROSSROADS_BASE_DIR . '/core' );
+define( 'CROSSROADS_SRC_DIR', CROSSROADS_CORE_DIR . '/src' );
+define( 'CROSSROADS_LOCALE_DIR', CROSSROADS_CORE_DIR . '/i18n' );
+
+require_once 'core/src/crossroads.php';
+
+$crossroads = new Engine;
+$crossroads->run( $argc, $argv );
+
+
