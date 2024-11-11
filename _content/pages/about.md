@@ -1,7 +1,8 @@
 ---
 title: "About"
+slug: "about"
 date: "2024-11-01"
-featuredImage: "_images/duane-new2.jpg"
+featuredImage: "_images/about-coffee.jpg"
 ---
 
 This is a sample about page. 
