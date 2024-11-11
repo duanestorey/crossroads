@@ -39,18 +39,8 @@
                     <ul class="pagination justify-content-center ">
                         {if $pagination->prevPageLink}
                         <li class="page-item"><a class="page-link" href="{$pagination->prevPageLink}">Previous</a></li>
-                        {else}
-                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
                         {/if}
-                        <!--
-                        {foreach $pagination->links as $link}
-                            {if $pagination->currentPage == $link->num}
-                                <li class="page-item active d-none d-lg-block"><a class="page-link" href="{$link->url}">{$link->num}</a></li>
-                            {else}
-                                <li class="page-item d-none d-lg-block"><a class="page-link" href="{$link->url}">{$link->num}</a></li>
-                            {/if}
-                        {/foreach} 
-                        -->
+
                         {if $pagination->nextPageLink}
                         <li class="page-item"><a class="page-link" href="{$pagination->nextPageLink}">Next</a></li>
                         {/if}
