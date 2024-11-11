@@ -37,11 +37,12 @@ require_once( CROSSROADS_CORE_DIR . '/plugins/seo-plugin.php' );
 require_once( CROSSROADS_CORE_DIR . '/plugins/wordpress-plugin.php' );
 
 class Engine {
-    var $builder = null;
-    var $config = null;
-    var $startTime = null;
-    var $fileLog = null;
-    var $db = null;
+    protected $builder = null;
+    protected $config = null;
+    protected $startTime = null;
+    protected $fileLog = null;
+    protected $db = null;
+    
     protected $pluginManager = null;
 
     public function __construct() {
@@ -139,7 +140,6 @@ class Engine {
     private function _db( $argc, $argv ) {
         switch( $argv[ 2 ] ) {
             case 'import':
-                
                 $this->db->rebuild();
                 $entries = new Entries( $this->config, $this->db, $this->pluginManager );
                 $content = $this->config->get( 'content',  );
@@ -187,6 +187,10 @@ class Engine {
         if ( !file_exists( CROSSROADS_BASE_DIR . '/.gitignore' ) ) {
             // write git file
             $gitContents = "vendor\n";
+            $gitContents = "_logs\n";
+            $gitContents = ".DS_Store\n";
+            $gitContents = "**/.DS_Store\n";
+
             file_put_contents( CROSSROADS_BASE_DIR . '/.gitignore', $gitContents );
         }
 

@@ -148,6 +148,7 @@ class Entries {
                         $content->contentPath = $content->contentType . '/' . basename( $content->markdownFile );
                         $content->modifiedDate = filemtime( $content->markdownFile );
                         $content->unique = md5( basename( $content->markdownFile ) ); 
+                        $content->className = $content->slug;
 
                         if ( $front = $markdown->frontMatter() ) {
                             $content->title = $this->_findDataInFrontMatter( [ 'title' ], $front,$content->title );
@@ -162,8 +163,6 @@ class Entries {
                                     $content->taxonomy[ $tax ] = array_map( function( $e ) { return Utils::cleanTerm( $e ); }, $content->taxonomy[ $tax ] );
                                 }
                             }
-
-                            // print_r( $content->taxonomy );
                         }
 
                         $content->originalHtml = $content->html;
