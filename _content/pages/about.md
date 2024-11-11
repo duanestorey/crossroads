@@ -1,6 +1,5 @@
 ---
 title: "About"
-slug: "about"
 date: "2024-11-01"
 featuredImage: "_images/about-coffee.jpg"
 ---
