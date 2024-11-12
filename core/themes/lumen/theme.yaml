@@ -1,5 +1,7 @@
 theme:
-  name: 'Lumen'
+  name: "Lumen"
+  version: "1.0"
+  author: "Duane Storey"
   assets:
     lumen.css:
       - bootstrap.min.css

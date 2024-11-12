@@ -1,5 +1,7 @@
 theme:
   name: 'Simple'
+  version: "1.0"
+  author: "Duane Storey"
   assets:
     simple.css:
       - bootstrap.min.css
