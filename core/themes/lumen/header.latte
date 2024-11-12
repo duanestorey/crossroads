@@ -42,24 +42,24 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
+                    <ul class="nav navbar-nav me-auto">
                         {foreach $menu as $menu_item}
-                        <a class="nav-item nav-link{if $menu_item->isActive} active{/if}" href="{$menu_item->url}">{$menu_item->name}</a>
-                        {/foreach}
-                    </div>
+                        <li><a class="nav-item nav-link{if $menu_item->isActive} active{/if}" href="{$menu_item->url}">{$menu_item->name}</a></li>
+                        {/foreach}  
+                    </ul>
 
-                    <ul class="navbar-nav d-flex flex-row">
-                        <li class="nav-item me-3 me-lg-0">
+                    <ul class="nav navbar-nav navbar">
+                        <li class="nav-item me-3 me-lg-0  d-none d-lg-block">
                             <a class="nav-link" rel="nofollow" href="https://x.com/duanestorey" aria-label="Twitter">
                                 <i class="fa-brands fa-x-twitter text-white"></i>
                             </a>
                         </li>
-                        <li class="nav-item me-3 me-lg-0">
+                        <li class="nav-item me-3 me-lg-0  d-none d-lg-block">
                             <a class="nav-link" rel="nofollow" href="https://instagram.com/duanestorey" aria-label="Instagram">
                                 <i class="fa-brands fa-instagram text-white"></i>
                             </a>
                         </li>
-                            <li class="nav-item me-3 me-lg-0">
+                            <li class="nav-item me-3 me-lg-0  d-none d-lg-block">
                             <a class="nav-link" rel="nofollow" href="https://bsky.app/profile/duanestorey.com" aria-label="Bluesky">
                                 <i class="fa-brands fa-bluesky text-white"></i>
                             </a>

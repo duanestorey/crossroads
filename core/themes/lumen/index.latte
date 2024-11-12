@@ -6,10 +6,10 @@
         </header>
         {/if}
 
-        <div class="container mt-4">
+        <div class="container slim mt-4">
         {foreach $content as $item} 
             <article class="mt-4 mb-4">    
-                <a href="{$item->relUrl}" class="link-dark"><h2 class="mt-4">{$item->title}</h2></a>
+                <a href="{$item->relUrl}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h2 class="mt-4">{$item->title}</h2></a>
                 <div class="meta mb-2 text-primary fs-6 fw-light">Published on <time>{$item->publishDate|date:'F jS, Y'}</time></div>
 
                 <div class="content mt-3">
@@ -39,8 +39,18 @@
                     <ul class="pagination justify-content-center ">
                         {if $pagination->prevPageLink}
                         <li class="page-item"><a class="page-link" href="{$pagination->prevPageLink}">Previous</a></li>
+                        {else}
+                        <li class="page-item disabled"><span class="page-link">Previous</span></li>
                         {/if}
-
+                        <!--
+                        {foreach $pagination->links as $link}
+                            {if $pagination->currentPage == $link->num}
+                                <li class="page-item active d-none d-lg-block"><a class="page-link" href="{$link->url}">{$link->num}</a></li>
+                            {else}
+                                <li class="page-item d-none d-lg-block"><a class="page-link" href="{$link->url}">{$link->num}</a></li>
+                            {/if}
+                        {/foreach} 
+                        -->
                         {if $pagination->nextPageLink}
                         <li class="page-item"><a class="page-link" href="{$pagination->nextPageLink}">Next</a></li>
                         {/if}
