@@ -161,6 +161,10 @@ class Entries {
                                 foreach( $contentConfig[ 'taxonomy' ] as $tax => $variations ) {
                                     $content->taxonomy[ $tax ] = $this->_findDataInFrontMatter( $variations, $front, [] ); 
                                     $content->taxonomy[ $tax ] = array_map( function( $e ) { return Utils::cleanTerm( $e ); }, $content->taxonomy[ $tax ] );
+
+                                    if ( count( $content->taxonomy[ $tax ] ) == 0 ) {
+                                        unset( $content->taxonomy[ $tax ] );
+                                    }
                                 }
                             }
                         }

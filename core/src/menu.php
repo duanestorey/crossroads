@@ -41,7 +41,7 @@ class Menu {
                 $menuItem->url = $pageSlug;
                 $menuItem->isActive = false;
                 
-                if ( $currentPage == $pageSlug ) {
+                if ( Utils::fixPath( $currentPage ) == Utils::fixPath( $pageSlug ) ) {
                     $menuItem->isActive = true;
                 }
 

@@ -93,7 +93,7 @@ class Renderer {
             while ( $pagination->currentPage <= $pagination->totalPages ) {
                 if ( $pagination->currentPage == 1 ) {
                     $filename = CROSSROADS_PUBLIC_DIR . $path . '/index.html';
-                    $pagination->curPageLink = $path . '/index.html';
+                    $pagination->curPageLink = $path . '/';
                 } else {
                     $filename = CROSSROADS_PUBLIC_DIR . $path . '/index-page-' . $pagination->currentPage . '.html';
                     $pagination->curPageLink = $path . '/index-page-' . $pagination->currentPage . '.html';
