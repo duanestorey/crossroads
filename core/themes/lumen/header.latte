@@ -43,7 +43,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <ul class="nav navbar-nav me-auto">
-                        {foreach $menu as $menu_item}
+                        {foreach $menu[ 'main' ] as $menu_item}
                         <li><a class="nav-item nav-link{if $menu_item->isActive} active{/if}" href="{$menu_item->url}">{$menu_item->name}</a></li>
                         {/foreach}  
                     </ul>

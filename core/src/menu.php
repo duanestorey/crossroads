@@ -27,7 +27,7 @@ class Menu {
             $available[] = $name;
         }
 
-        return $avilable;
+        return $available;
     }
 
     public function build( $menuName, $currentPage ) {
