@@ -49,6 +49,10 @@ class WordPress {
 
                     if ( $decoded && count( $decoded ) ) {
                         foreach( $decoded as $entry ) {
+                            if ( $entry->post_status != 'publish' ) {
+                                continue;
+                            }
+
                             $wp_entry = new \stdClass;
                             $wp_entry->publishDate = strtotime( $entry->date_gmt );
                             $wp_entry->modifiedDate = strtotime( $entry->modified_gmt );
@@ -127,6 +131,8 @@ class WordPress {
                                     $new_image = str_replace( '/duanestorey.com/wordpress/', '/duanestorey.com/', $new_image );
                                     $new_image = str_replace( '/duanestorey.com', '/old.duanestorey.com', $new_image );
                                     $new_image = str_replace( '/old.duanestorey.com/wordpress/', '/old.duanestorey.com/', $new_image );
+                                    $new_image = str_replace( '/busblog.tonypierce.com', '/busblog.com', $new_image );
+                                    $new_image = str_replace( '/tonypierce.com', '/busblog.com', $new_image );
 
                                     // let's remove the shit from the end
                                     $fullInfo = parse_url( $new_image );

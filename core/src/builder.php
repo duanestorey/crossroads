@@ -42,11 +42,20 @@ class Builder {
                 ]
             );       
         } else {
-            $this->templateEngine->setTemplateDirs( 
-                [
-                    CROSSROADS_BASE_DIR . '/' . $this->config->get( 'dirs.core_themes', 'core/themes' ) . '/' . $this->config->get( 'site.theme' ) 
-                ]
-            );
+            if ( $this->theme->isLocalTheme() ) {
+                $this->templateEngine->setTemplateDirs( 
+                    [
+                        CROSSROADS_LOCAL_THEME_DIR . '/' . $this->theme->getChildThemeName()
+                    ]
+                );
+            } else {
+                $this->templateEngine->setTemplateDirs( 
+                    [
+                        CROSSROADS_BASE_DIR . '/' . $this->config->get( 'dirs.core_themes', 'core/themes' ) . '/' . $this->config->get( 'site.theme' ) 
+                    ]
+                );           
+            }
+
         }
  
 

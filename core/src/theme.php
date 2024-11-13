@@ -16,6 +16,9 @@ class Theme {
     protected $coreThemeDir = null;
     protected $localThemeDir = null;
     protected $isChildTheme = false;
+    protected $isLocalTheme = false;
+
+    protected $primaryThemeDir = false;
 
     public function __construct( $themeName, $coreThemeDir, $localThemeDir ) {
         $this->themeName = $themeName;
@@ -31,12 +34,20 @@ class Theme {
         return $this->isChildTheme;
     }
 
+    public function isLocalTheme() {
+        return $this->isLocalTheme;
+    }
+
     public function getChildThemeName() {
         return $this->themeName;
     }
 
     public function getParentThemeName() {
         return $this->parentThemeName;
+    }
+
+    public function primaryThemeDir() {
+        return $this->primaryThemeDir;
     }
 
     public function load() {
@@ -51,6 +62,8 @@ class Theme {
                     $this->isChildTheme = true;
                     $this->childThemeConfig = $localThemeConfig;
                     $this->parentThemeName = $parentTheme;
+                    $this->isLocalTheme = true;
+                    $this->primaryThemeDir = $this->coreThemeDir . '/' . $parentTheme;
 
                     $this->themeConfig = new Config( YAML::parse_file( $this->coreThemeDir . '/' .  $parentTheme . '/theme.yaml', true ) );
 
@@ -60,6 +73,8 @@ class Theme {
                 // not a child theme, but may be a regular theme
                 if ( file_exists( $this->localThemeDir . '/' . $this->themeName . '/index.latte' ) && file_exists( $this->localThemeDir . '/' . $this->themeName . '/index.latte' ) ) {
                     $this->themeConfig = new Config( YAML::parse_file( $this->localThemeDir . '/' .  $this->themeName . '/theme.yaml', true ) );
+                    $this->isLocalTheme = true;
+                    $this->primaryThemeDir = $this->localThemeDir . '/' . $this->themeName;
 
                     return true;
                 }
@@ -68,6 +83,7 @@ class Theme {
 
         if ( file_exists( $this->coreThemeDir . '/' . $this->themeName . '/theme.yaml' ) && file_exists( $this->coreThemeDir . '/' . $this->themeName . '/index.latte' ) ) {
             $this->themeConfig = new Config( YAML::parse_file( $this->coreThemeDir . '/' .  $this->themeName . '/theme.yaml', true ) );
+            $this->primaryThemeDir = $this->coreThemeDir . '/' . $this->themeName;
 
             return true;
         }
@@ -107,12 +123,9 @@ class Theme {
         foreach( $this->themeConfig->get( 'theme.assets', [] ) as $destName => $sources ) {
             LOG( sprintf( _i18n( 'core.class.theme.processing' ), $destName ), 2, LOG::INFO );
 
-            // do parent first if child
-            $themeNameFirst = ( $this->isChildTheme ? $this->parentThemeName : $this->themeName );
-
             $content = '';
             foreach( $sources as $key => $source ) {
-                $actualFile = $this->coreThemeDir . '/' . $themeNameFirst . '/assets/' . $source;
+                $actualFile = $this->primaryThemeDir . '/assets/' . $source;
                 $content = $this->accumulateAssets( $content, $actualFile );
             }
 
