@@ -49,7 +49,7 @@ class WordPress {
 
                     if ( $decoded && count( $decoded ) ) {
                         foreach( $decoded as $entry ) {
-                            if ( $entry->post_status != 'publish' ) {
+                            if ( $entry->status	 != 'publish' ) {
                                 continue;
                             }
 
