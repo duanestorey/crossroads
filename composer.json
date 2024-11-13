@@ -8,6 +8,7 @@
         "erusev/parsedown": "^1.7",
         "league/html-to-markdown": "^5.1",
         "scssphp/scssphp": "^1.13",
-        "mallardduck/html-formatter": "^1.0"
+        "mallardduck/html-formatter": "^1.0",
+        "duncan3dc/fork-helper": "^2.5"
     }
 }
