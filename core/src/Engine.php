@@ -50,6 +50,7 @@ class Engine
                     // right command, let's check params
                     if ($argc != ($required_params + 2)) {
                         $this->_usage();
+                        return;
                     } else {
                         $foundCommand = true;
 

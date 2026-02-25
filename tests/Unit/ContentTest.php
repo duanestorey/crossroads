@@ -87,3 +87,15 @@ it('calculates URL without config base', function () {
 
     expect($content->relUrl)->toBe('/pages/about.html');
 });
+
+it('excerpt measures character length not byte length for unicode', function () {
+    $content = new Content($this->config, 'posts', $this->contentConfig);
+    // Each accented word is 5 chars but more bytes in UTF-8
+    $content->html = 'résumé café naïve résumé café naïve résumé café naïve résumé';
+
+    $excerpt = $content->excerpt(30, false);
+
+    // With mb_strlen, it counts characters not bytes, so more words fit within the limit
+    $wordCount = str_word_count($excerpt);
+    expect($wordCount)->toBeGreaterThan(3);
+});

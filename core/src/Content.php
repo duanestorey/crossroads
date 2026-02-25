@@ -157,7 +157,7 @@ class Content
         $len = 0;
         for ($i = 0; $i < count($words); $i++) {
             $str = $str . $words[ $i ] . ' ';
-            $len += strlen($words[ $i ]) + 1;
+            $len += mb_strlen($words[ $i ]) + 1;
 
             if ($len >= $length) {
                 break;

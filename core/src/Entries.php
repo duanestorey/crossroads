@@ -29,7 +29,7 @@ class Entries
             return $this->entries[ $contentType ];
         }
 
-        return false;
+        return [];
     }
 
     public function getTaxTypes($contentType)
@@ -40,7 +40,7 @@ class Entries
             return $values;
         }
 
-        return false;
+        return [];
     }
 
     public function getTaxTerms($contentType, $taxType)
@@ -51,7 +51,7 @@ class Entries
             return $values;
         }
 
-        return false;
+        return [];
     }
 
     public function getTax($contentType, $taxType, $term)
@@ -60,7 +60,7 @@ class Entries
             return $this->tax[ $contentType ][ $taxType ][ $term ];
         }
 
-        return false;
+        return [];
     }
 
     public function getAll()
