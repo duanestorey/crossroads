@@ -51,7 +51,6 @@ class Utils
         $ch = curl_init($url);
         if ($ch) {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10) ;
             curl_setopt($ch, CURLOPT_TIMEOUT, 20);

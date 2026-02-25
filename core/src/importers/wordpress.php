@@ -128,27 +128,20 @@ class WordPress
                             $regex = '<img[^>]+src="([^">]+)"';
                             if (preg_match_all("/$regex/iU", $entry->content->rendered, $matches)) {
                                 foreach ($matches[ 1 ] as $num => $image) {
-                                    $new_image = str_replace('www.duanestorey.com', 'old.duanestorey.com', $image);
-                                    $new_image = str_replace('www.migratorynerd.com/wordpress/', 'old.duanestorey.com/', $new_image);
-                                    $new_image = str_replace('www.migratorynerd.com/', 'old.duanestorey.com/', $new_image);
-                                    $new_image = str_replace('/duanestorey.com/wordpress/', '/duanestorey.com/', $new_image);
-                                    $new_image = str_replace('/duanestorey.com', '/old.duanestorey.com', $new_image);
-                                    $new_image = str_replace('/old.duanestorey.com/wordpress/', '/old.duanestorey.com/', $new_image);
-                                    $new_image = str_replace('/busblog.tonypierce.com', '/busblog.com', $new_image);
-                                    $new_image = str_replace('/tonypierce.com', '/busblog.com', $new_image);
+                                    $downloadUrl = $image;
 
-                                    // let's remove the shit from the end
-                                    $fullInfo = parse_url($new_image);
+                                    // Remove resized image suffixes (e.g., -300x200)
+                                    $fullInfo = parse_url($downloadUrl);
                                     $imageFilename = basename($fullInfo[ 'path' ]);
                                     if (preg_match('#(.*)(-(\d+)x(\d+)).(.*)#', $imageFilename, $match)) {
-                                        $new_image = str_replace($match[ 2 ], '', $new_image);
+                                        $downloadUrl = str_replace($match[ 2 ], '', $downloadUrl);
                                     }
 
-                                    $result = $this->maybeDownloadFile($new_image, $imageDir, $homeUrl, $fileSlug . '-' . ($num + 1));
+                                    $result = $this->maybeDownloadFile($downloadUrl, $imageDir, $homeUrl, $fileSlug . '-' . ($num + 1));
                                     if ($result) {
                                         $entry->content->rendered = str_replace($image, '_images/' . $result, $entry->content->rendered);
                                     } else {
-                                        $brokenImages[ $mdFile ][] = $new_image;
+                                        $brokenImages[ $mdFile ][] = $downloadUrl;
                                     }
                                 }
                             }

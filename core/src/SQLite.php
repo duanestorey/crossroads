@@ -2,7 +2,7 @@
 
 namespace CR;
 
-class MYSQL
+class SQLite
 {
     protected $sql;
     protected $config;
@@ -16,6 +16,7 @@ class MYSQL
         }
 
         $this->sql = new \SQLite3(CROSSROADS_DB_DIR . '/db.sqlite', SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+        $this->sql->exec('PRAGMA foreign_keys = ON');
     }
 
     public function __destruct()
@@ -36,14 +37,9 @@ class MYSQL
         }
     }
 
-    public function escape($str)
+    public function prepare($sql)
     {
-        return $this->sql->escapeString($str);
-    }
-
-    public function escapeWithTicks($str)
-    {
-        return "'" . $this->sql->escapeString($str) . "'";
+        return $this->sql->prepare($sql);
     }
 
     public function query($sql)

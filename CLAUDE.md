@@ -102,7 +102,7 @@ Themes live in `core/themes/` (bundled) or `_themes/` (local). Each theme has:
 - `processAll($entries)` — modify the full entry collection
 - `templateParamFilter($params)` — modify template rendering parameters
 
-`PluginManager` (`core/src/PluginManager.php`) chains installed plugins. Built-in plugins in `core/plugins/` (`CR\Plugins\` namespace): `SeoPlugin`, `WordPressPlugin`, `ImagePlugin`.
+`PluginManager` (`core/src/PluginManager.php`) chains installed plugins. Built-in plugins in `core/plugins/` (`CR\Plugins\` namespace): `SeoPlugin`, `WordPressPlugin`.
 
 ### Rendering
 
@@ -124,3 +124,14 @@ Themes live in `core/themes/` (bundled) or `_themes/` (local). Each theme has:
 - Exceptions: `ThemeException`, `SassException`, `BuildException`, `CommandException`
 - Engine routes CLI commands to private methods named `_<command>()` (e.g., `_build()`, `_serve()`)
 - Version constant `CROSSROADS_VERSION` defined in the `crossroads` entry script
+
+## Release Process
+
+When cutting a new version release:
+
+1. **Update version** — Set `CROSSROADS_VERSION` in the `crossroads` entry script to the new version number
+2. **Update changelog** — In `CHANGELOG.md`, replace `[Unreleased]` with `[X.Y.Z] - YYYY-MM-DD` using today's date. Add a new `## [Unreleased]` section above it for future changes
+3. **Run checks** — `composer check` must pass clean (code style, PHPStan, Pest tests)
+4. **Commit** — Commit with a message like `Release vX.Y.Z`
+
+The changelog follows [Keep a Changelog](https://keepachangelog.com/) format with these categories: Security, Added, Changed, Fixed, Removed. During development, new entries go under `[Unreleased]`.
