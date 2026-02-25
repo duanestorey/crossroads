@@ -47,12 +47,16 @@ core:
       sending: Sending [%s] bytes out of [%s] 
       response: Sending response [%s] 
     upgrade:
-      composer: "Upgrading commposer packages"
+      composer: "Upgrading composer packages"
       cur_ver: "Your current version is [%s]"
       next_ver: "The latest stable version is [%s]"
       up_to_date: "You are running the latest version, no upgrade required"
       downloading: "Downloading the latest version of Crossroads from Github"
-      unzip: "Expanding the archive"      
+      unzip: "Expanding the archive"
+      composer_detected: "Composer installation detected"
+      running_composer_update: "Running composer update..."
+      composer_success: "Upgrade completed successfully"
+      composer_failed: "Composer update failed - check output above"
   new:
     content: "Creating new [%s]"
     title: "Enter new title: "
