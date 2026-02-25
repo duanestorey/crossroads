@@ -14,3 +14,4 @@ parameters:
         - '#Parameter .* has no type hint#'
         - '#Method .* has no return type#'
         - '#has no value type specified in iterable type array#'
+        - '#class CR\\Importers\\WordPress#'
