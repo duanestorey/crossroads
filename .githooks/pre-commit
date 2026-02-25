@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo "Checking code style..."
+vendor/bin/php-cs-fixer fix --dry-run --diff --quiet
+if [ $? -ne 0 ]; then
+    echo "Code style issues found. Run 'composer cs-fix' to fix them."
+    exit 1
+fi
+
+echo "Running PHPStan..."
+vendor/bin/phpstan analyse --no-progress --quiet
+if [ $? -ne 0 ]; then
+    echo "PHPStan found errors. Run 'composer lint' to see details."
+    exit 1
+fi
+
+echo "Running tests..."
+vendor/bin/pest --no-coverage --quiet
+if [ $? -ne 0 ]; then
+    echo "Tests failed. Run 'composer test' to see details."
+    exit 1
+fi

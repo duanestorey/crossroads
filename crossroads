@@ -29,9 +29,5 @@ define( 'CROSSROADS_CORE_DIR', CROSSROADS_BASE_DIR . '/core' );
 define( 'CROSSROADS_SRC_DIR', CROSSROADS_CORE_DIR . '/src' );
 define( 'CROSSROADS_LOCALE_DIR', CROSSROADS_CORE_DIR . '/i18n' );
 
-require_once 'core/src/crossroads.php';
-
 $crossroads = new Engine;
 $crossroads->run( $argc, $argv );
-
-

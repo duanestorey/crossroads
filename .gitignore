@@ -1,3 +1,8 @@
 vendor
 .DS_Store
 **/.DS_Store
+_public/
+_db/
+_logs/
+.phpunit.cache/
+.php-cs-fixer.cache

@@ -3,6 +3,7 @@
     "description": "Crossroads Static Site Generator",
     "license": "GPL-3.0-or-later",
     "require": {
+        "php": ">=8.1",
         "symfony/yaml": "^7.1",
         "latte/latte": "^3.0",
         "erusev/parsedown": "^1.7",
@@ -10,5 +11,40 @@
         "scssphp/scssphp": "^1.13",
         "mallardduck/html-formatter": "^1.0",
         "duncan3dc/fork-helper": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CR\\": "core/src/",
+            "CR\\Plugins\\": "core/plugins/"
+        },
+        "files": [
+            "core/src/Log.php",
+            "core/src/International.php",
+            "core/src/Content.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CR\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.94",
+        "phpstan/phpstan": "^2.1",
+        "pestphp/pest": "^4.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "post-install-cmd": "git config core.hooksPath .githooks || true",
+        "post-update-cmd": "git config core.hooksPath .githooks || true",
+        "test": "pest",
+        "lint": "phpstan analyse",
+        "cs-fix": "php-cs-fixer fix",
+        "cs-check": "php-cs-fixer fix --dry-run --diff",
+        "check": ["@cs-check", "@lint", "@test"]
     }
 }

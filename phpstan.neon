@@ -1,0 +1,16 @@
+parameters:
+    level: 5
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    paths:
+        - core/src
+        - core/plugins
+    scanDirectories:
+        - vendor
+    excludePaths:
+        - core/src/importers/*
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Parameter .* has no type hint#'
+        - '#Method .* has no return type#'
+        - '#has no value type specified in iterable type array#'
