@@ -1,4 +1,5 @@
 # Exclude dev-only files from Composer dist archives
+/composer.lock export-ignore
 /core/ export-ignore
 /tests/ export-ignore
 /docs/ export-ignore
