@@ -74,26 +74,21 @@ End users install with `composer create-project duanestorey/crossroads my-blog` 
 
 ### Local Core Development
 
-To work on the core engine and test it with blog content in this repo, use Composer's `COMPOSER` env var with a dev-only config:
+To work on the core engine and test it with blog content in this repo, use Composer's `COMPOSER` env var with `composer.dev.json` (gitignored). This file is a full copy of `composer.json` plus a path repository and `@dev` constraint, so Composer symlinks `vendor/duanestorey/crossroads-core` to a local clone.
 
-1. Create `composer.dev.json` (gitignored) at the project root:
-   ```json
-   {
-       "repositories": [
-           {"type": "path", "url": "../crossroads-core", "options": {"symlink": true}}
-       ]
-   }
-   ```
-2. Install with the dev config — Composer symlinks vendor core to your local clone:
-   ```bash
-   COMPOSER=composer.dev.json composer update
-   ```
-3. Edit core code in `../crossroads-core/`, test with `php crossroads build` here, commit in the core repo when done.
-4. Switch back to the Packagist version:
-   ```bash
-   composer update
-   ```
-   Without the env var, the normal `composer.json` pulls from Packagist.
+The `crossroads-core` repo should be cloned alongside this repo (i.e. `../crossroads-core`).
+
+```bash
+# Switch to dev mode (symlinks local core clone)
+COMPOSER=composer.dev.json composer update
+
+# Edit core code in ../crossroads-core/, test here with php crossroads build
+
+# Switch back to Packagist version
+composer update
+```
+
+The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-stability": "dev"` and `"prefer-stable": true`, so the path repo's `dev-main` branch satisfies the constraint. Both `composer.dev.json` and `composer.dev.lock` are gitignored.
 
 ### Key Constants
 

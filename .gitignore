@@ -7,3 +7,4 @@ _logs/
 .phpunit.cache/
 .php-cs-fixer.cache
 composer.dev.json
+composer.dev.lock
