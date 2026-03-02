@@ -77,8 +77,8 @@ End users install with `composer create-project duanestorey/crossroads my-blog` 
 | This repo (`crossroads`) | Core repo (`crossroads-core`) |
 |---------------------------|-------------------------------|
 | `crossroads` entry script | `src/` — all `CR\` namespace classes |
-| `_content/` — user markdown content | `plugins/` — built-in plugins (`CR\Plugins\`) |
-| `_config/` — site.yaml, menus.yaml | `themes/` — bundled themes (lumen, simple) |
+| `_site/content/` — user markdown content | `plugins/` — built-in plugins (`CR\Plugins\`) |
+| `_site/config/` — site.yaml, menus.yaml | `themes/` — bundled themes (lumen, simple) |
 | `composer.json` — project deps | `schemas/` — SQLite schema files |
 | `tests/` — Pest test suite | `i18n/` — locale YAML files (en, es) |
 | Dev tool configs (phpstan, cs-fixer, etc.) | `composer.json` — library package definition |
@@ -112,8 +112,9 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 | `CROSSROADS_BASE_DIR` | Project root directory |
 | `CROSSROADS_CORE_DIR` | Core engine directory (auto-detected) |
 | `CROSSROADS_SRC_DIR` | Core source (`CORE_DIR/src`) |
-| `CROSSROADS_CONTENT_DIR` | User content (`BASE_DIR/_content`) |
-| `CROSSROADS_CONFIG_DIR` | User config (`BASE_DIR/_config`) |
+| `CROSSROADS_SITE_DIR` | Site directory (`BASE_DIR/_site`) |
+| `CROSSROADS_CONTENT_DIR` | User content (`BASE_DIR/_site/content`) |
+| `CROSSROADS_CONFIG_DIR` | User config (`BASE_DIR/_site/config`) |
 | `CROSSROADS_IS_COMPOSER` | Whether this is a Composer-managed installation |
 
 ## Architecture
@@ -123,9 +124,9 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 `Engine` (`src/Engine.php` in core) is the CLI entry point and command router. It dispatches to:
 
 `Builder` (`src/Builder.php` in core) which orchestrates the full build:
-1. Sets up theme and loads menus from `_config/menus.yaml`
+1. Sets up theme and loads menus from `_site/config/menus.yaml`
 2. Initializes Latte template engine
-3. `Entries` loads all `.md` files from `_content/<type>/`, parses YAML front matter via `Markdown`, creates `Content` objects
+3. `Entries` loads all `.md` files from `_site/content/<type>/`, parses YAML front matter via `Markdown`, creates `Content` objects
 4. `Content::calculate()` derives URLs, word count, reading time, taxonomy links
 5. `Content::processImages()` finds images, generates responsive variants, converts to WebP
 6. `PluginManager` runs all plugins against each entry
@@ -140,7 +141,7 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 
 ### Configuration
 
-`_config/site.yaml` is loaded by `Config` (`src/Config.php` in core) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
+`_site/config/site.yaml` is loaded by `Config` (`src/Config.php` in core) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
 
 Key config sections: `site.*` (metadata, theme), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
 
@@ -206,4 +207,4 @@ Themes live in `themes/` (bundled, in core) or `_themes/` (local). Each theme ha
 
 - The changelog follows [Keep a Changelog](https://keepachangelog.com/) format with categories: Security, Added, Changed, Fixed, Removed. During development, new entries go under `[Unreleased]`.
 - Tags must be annotated (`git tag -a`) — lightweight tags will fail due to git hooks.
-- PHPStan may hit the default 128M memory limit. If `composer lint` fails with a memory error, run directly: `vendor/bin/phpstan analyse --memory-limit=512M`
+- The `composer lint` script passes `--memory-limit=512M` to PHPStan to avoid the default 128M PHP limit.

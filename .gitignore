@@ -8,7 +8,7 @@ _logs/
 .php-cs-fixer.cache
 composer.dev.json
 composer.dev.lock
-_content/
-_config/site.local.yaml
-_config/menus.local.yaml
+_site/content/
+_site/config/site.local.yaml
+_site/config/menus.local.yaml
 .crossroadsinit

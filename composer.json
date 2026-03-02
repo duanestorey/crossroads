@@ -26,7 +26,7 @@
         "post-install-cmd": "git config core.hooksPath .githooks || true",
         "post-update-cmd": "git config core.hooksPath .githooks || true",
         "test": "pest",
-        "lint": "phpstan analyse",
+        "lint": "phpstan analyse --memory-limit=512M",
         "cs-fix": "php-cs-fixer fix",
         "cs-check": "php-cs-fixer fix --dry-run --diff",
         "check": ["@cs-check", "@lint", "@test"]
