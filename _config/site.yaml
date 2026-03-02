@@ -3,7 +3,7 @@ site:
   url: 'https://mytestsite.com'
   description: 'This is a test site using the Crossroads SSG'
   home_description: 'Crossroads SSG is a state-of-the art static site generator written in PHP'
-  theme: "simple"
+  theme: "phosphor"
   lang: "en"
   charset: "utf-8"
   home: "posts"

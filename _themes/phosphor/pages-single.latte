@@ -1,0 +1,15 @@
+{include 'header.latte'}
+
+                    <article>
+                        <div class="post-header">
+                            <h1 class="post-title">{$content->title}</h1>
+                        </div>
+
+                        {include 'featured.latte'}
+
+                        <div class="post-content">
+                            {$content->html|noescape}
+                        </div>
+                    </article>
+
+{include 'footer.latte'}
