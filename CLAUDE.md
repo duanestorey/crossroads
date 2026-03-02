@@ -72,6 +72,29 @@ The core engine always lives at `vendor/duanestorey/crossroads-core/` (installed
 
 End users install with `composer create-project duanestorey/crossroads my-blog` and upgrade core via `composer update`. Dev tool configs (PHPStan, CS Fixer, PHPUnit) all point to the vendor path.
 
+### Local Core Development
+
+To work on the core engine and test it with blog content in this repo, use Composer's `COMPOSER` env var with a dev-only config:
+
+1. Create `composer.dev.json` (gitignored) at the project root:
+   ```json
+   {
+       "repositories": [
+           {"type": "path", "url": "../crossroads-core", "options": {"symlink": true}}
+       ]
+   }
+   ```
+2. Install with the dev config — Composer symlinks vendor core to your local clone:
+   ```bash
+   COMPOSER=composer.dev.json composer update
+   ```
+3. Edit core code in `../crossroads-core/`, test with `php crossroads build` here, commit in the core repo when done.
+4. Switch back to the Packagist version:
+   ```bash
+   composer update
+   ```
+   Without the env var, the normal `composer.json` pulls from Packagist.
+
 ### Key Constants
 
 | Constant | Purpose |

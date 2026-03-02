@@ -6,3 +6,4 @@ _db/
 _logs/
 .phpunit.cache/
 .php-cs-fixer.cache
+composer.dev.json
