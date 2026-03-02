@@ -11,3 +11,4 @@ composer.dev.lock
 _content/
 _config/site.local.yaml
 _config/menus.local.yaml
+.crossroadsinit
