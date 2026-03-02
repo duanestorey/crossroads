@@ -1,7 +1,7 @@
 <?php
 
 $finder = (new PhpCsFixer\Finder())
-    ->in([__DIR__ . '/core/src', __DIR__ . '/core/plugins']);
+    ->in([__DIR__ . '/vendor/duanestorey/crossroads-core/src', __DIR__ . '/vendor/duanestorey/crossroads-core/plugins']);
 
 return (new PhpCsFixer\Config())
     ->setRules([

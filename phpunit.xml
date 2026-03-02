@@ -14,8 +14,8 @@
     </testsuites>
     <source>
         <include>
-            <directory>core/src</directory>
-            <directory>core/plugins</directory>
+            <directory>vendor/duanestorey/crossroads-core/src</directory>
+            <directory>vendor/duanestorey/crossroads-core/plugins</directory>
         </include>
     </source>
 </phpunit>

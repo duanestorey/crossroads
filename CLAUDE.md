@@ -61,16 +61,16 @@ composer test
 Crossroads uses a two-package split (Laravel-style):
 
 - **`duanestorey/crossroads`** (this repo) — skeleton/project template with user content, config, CLI script
-- **`duanestorey/crossroads-core`** (`core/` directory) — engine library with src, plugins, themes, schemas, i18n
+- **`duanestorey/crossroads-core`** (separate repo, installed via Composer) — engine library with src, plugins, themes, schemas, i18n
 
-### Dev Layout vs Installed Layout
+### Core Engine Location
 
-In the dev repo, `core/` lives at the project root. Composer's path repository symlinks `vendor/duanestorey/crossroads-core` → `./core`. The entry script auto-detects core location:
+The core engine always lives at `vendor/duanestorey/crossroads-core/` (installed from Packagist). There is no local `core/` directory — to develop the engine, work in the `duanestorey/crossroads-core` repo directly.
 
-- `CROSSROADS_CORE_DIR` → `core/` (dev) or `vendor/duanestorey/crossroads-core/` (installed)
-- `CROSSROADS_IS_COMPOSER` → `false` (dev) or `true` (installed via `composer create-project`)
+- `CROSSROADS_CORE_DIR` → `vendor/duanestorey/crossroads-core/`
+- `CROSSROADS_IS_COMPOSER` → `true`
 
-End users install with `composer create-project duanestorey/crossroads my-blog` and upgrade core via `composer update`.
+End users install with `composer create-project duanestorey/crossroads my-blog` and upgrade core via `composer update`. Dev tool configs (PHPStan, CS Fixer, PHPUnit) all point to the vendor path.
 
 ### Key Constants
 

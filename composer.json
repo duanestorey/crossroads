@@ -3,15 +3,6 @@
     "description": "Crossroads Static Site Generator",
     "license": "GPL-3.0-or-later",
     "type": "project",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./core",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "require": {
         "php": ">=8.4",
         "duanestorey/crossroads-core": "^1.0"

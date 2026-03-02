@@ -1,9 +1,7 @@
 # Exclude dev-only files from Composer dist archives
 /composer.lock export-ignore
-/core/ export-ignore
 /tests/ export-ignore
 /docs/ export-ignore
-/skeleton/ export-ignore
 /.github/ export-ignore
 /.githooks/ export-ignore
 /.php-cs-fixer.dist.php export-ignore
