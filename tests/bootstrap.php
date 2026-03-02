@@ -7,7 +7,7 @@ define('CROSSROADS_BASE_DIR', dirname(__DIR__));
 define('CROSSROADS_SITE_SLUG', '_site');
 define('CROSSROADS_CONTENT_SLUG', '_site/content');
 define('CROSSROADS_CONFIG_SLUG', '_site/config');
-define('CROSSROADS_PUBLIC_SLUG', '_public');
+define('CROSSROADS_PUBLIC_SLUG', '_site/public');
 define('CROSSROADS_LOG_SLUG', '_logs');
 define('CROSSROADS_DB_SLUG', '_db');
 define('CROSSROADS_THEMES_SLUG', '_themes');

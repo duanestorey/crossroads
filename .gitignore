@@ -1,7 +1,7 @@
 vendor
 .DS_Store
 **/.DS_Store
-_public/
+_site/public/
 _db/
 _logs/
 .phpunit.cache/
@@ -12,3 +12,4 @@ _site/content/
 _site/config/site.local.yaml
 _site/config/menus.local.yaml
 .crossroadsinit
+_site/.git

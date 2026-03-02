@@ -5,6 +5,22 @@ All notable changes to Crossroads will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [2.0.0] - 2026-03-02
+
+### Changed
+
+- Redirect build output from `_public/` to `_site/public/` for local-build-and-deploy workflow
+- Drafts are always built with `<meta name="crossroads-draft">` tag and visual banner (no more `--drafts` flag)
+- Replace CI build-and-deploy GitHub Action with draft-guard workflow that fails if draft HTML is present
+- Sync `composer.dev.json` memory limit with `composer.json`
+
+### Removed
+
+- `_themes/phosphor/` local theme (now bundled in core at `themes/phosphor/`)
+- `--drafts` CLI flag (drafts are always included)
+
 ## [1.3.0] - 2026-03-02
 
 ### Changed

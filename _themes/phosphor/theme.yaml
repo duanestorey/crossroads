@@ -1,9 +1,0 @@
-theme:
-  name: 'Phosphor'
-  version: "1.0"
-  author: "Duane Storey"
-  assets:
-    phosphor.css:
-      - phosphor.scss
-    phosphor.min.js:
-      - phosphor.js
