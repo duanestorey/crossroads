@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-03-02
+
+### Added
+- Load i18n locale in test bootstrap so `_i18n()` returns real strings during tests
+- New test coverage: YAML, Menu, Log, SeoPlugin, WordPressPlugin, LlmsTxt, DB (8 new test files)
+- Extended test coverage: Config `set()` tests, Utils `findAllFilesWithExtension()` and `titleToSlug()` edge cases
+
+### Changed
+- Rewrite EntriesTest with real behavior tests (populated data, taxonomy queries)
+- Rewrite PluginManagerTest with cumulative processAll chaining and contentFilter tests
+- Fix ContentTest readingTime assertion to verify actual i18n content
+- Fix MarkdownTest strippedMarkdown test to use inline HTML tags
+- Merge redundant SchemaTest tests into single test with file guard
+
+### Fixed
+- Add `_archive/` and `_public/` to `.gitignore`
+
 ## [2.0.0] - 2026-03-02
 
 ### Changed

@@ -37,16 +37,18 @@ it('converts markdown to HTML', function () {
     expect($md->html())->toContain('<strong>bold text</strong>');
 });
 
-it('returns stripped markdown without HTML tags', function () {
+it('returns stripped markdown without inline HTML tags', function () {
     $md = new Markdown();
     $tmpFile = tempnam(sys_get_temp_dir(), 'md_');
-    file_put_contents($tmpFile, "---\ntitle: Test\n---\n\n**bold** and *italic*");
+    file_put_contents($tmpFile, "---\ntitle: Test\n---\n\nHello <br> world <img src=\"test.jpg\"> end");
 
     $md->loadFile($tmpFile);
     unlink($tmpFile);
 
-    expect($md->strippedMarkdown())->not->toContain('<')
-        ->and($md->strippedMarkdown())->toContain('bold');
+    expect($md->strippedMarkdown())->not->toContain('<br>')
+        ->and($md->strippedMarkdown())->not->toContain('<img')
+        ->and($md->strippedMarkdown())->toContain('Hello')
+        ->and($md->strippedMarkdown())->toContain('world');
 });
 
 it('handles file without front matter', function () {

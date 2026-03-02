@@ -1,13 +1,11 @@
 <?php
 
-it('taxonomy schema has proper foreign key reference', function () {
-    $schema = file_get_contents(CROSSROADS_CORE_DIR . '/schemas/taxonomy.sql');
+it('taxonomy schema has correct structure and references', function () {
+    $schemaPath = CROSSROADS_CORE_DIR . '/schemas/taxonomy.sql';
+    expect(file_exists($schemaPath))->toBeTrue();
 
-    expect($schema)->toContain('REFERENCES content(id)');
-});
+    $schema = file_get_contents($schemaPath);
 
-it('taxonomy schema does not contain FOREIGH typo', function () {
-    $schema = file_get_contents(CROSSROADS_CORE_DIR . '/schemas/taxonomy.sql');
-
-    expect($schema)->not->toContain('FOREIGH');
+    expect($schema)->toContain('REFERENCES content(id)')
+        ->and($schema)->not->toContain('FOREIGH');
 });

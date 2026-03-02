@@ -26,3 +26,21 @@ it('returns array values', function () {
     $config = new Config(['content.posts.taxonomy' => ['categories', 'tags']]);
     expect($config->get('content.posts.taxonomy'))->toBe(['categories', 'tags']);
 });
+
+it('set() stores a value retrievable by get()', function () {
+    $config = new Config([]);
+    $config->set('site.name', 'New Site');
+    expect($config->get('site.name'))->toBe('New Site');
+});
+
+it('set() overwrites existing values', function () {
+    $config = new Config(['site.name' => 'Old Site']);
+    $config->set('site.name', 'New Site');
+    expect($config->get('site.name'))->toBe('New Site');
+});
+
+it('set() on null config initializes it', function () {
+    $config = new Config(null);
+    $config->set('key', 'value');
+    expect($config->get('key'))->toBe('value');
+});

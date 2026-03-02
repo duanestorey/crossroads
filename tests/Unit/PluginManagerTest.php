@@ -18,7 +18,6 @@ it('chains processOne through all plugins', function () {
     $config = new Config(['site.name' => 'Test']);
     $pm = new PluginManager($config);
 
-    // Create two plugins that modify the entry
     $plugin1 = new class ('p1') extends Plugin {
         public function processOne($entry)
         {
@@ -43,30 +42,39 @@ it('chains processOne through all plugins', function () {
 
     $result = $pm->processOne($entry);
 
-    // Both plugins should have processed the entry (bug fix verification)
     expect($result->processed)->toBe(['plugin1', 'plugin2']);
 });
 
-it('chains processAll through all plugins', function () {
+it('chains processAll through two mutating plugins cumulatively', function () {
     $config = new Config(['site.name' => 'Test']);
     $pm = new PluginManager($config);
 
-    $plugin = new class ('counter') extends Plugin {
+    $plugin1 = new class ('adder') extends Plugin {
         public function processOne($entry)
         {
-            $entry->count = ($entry->count ?? 0) + 1;
+            $entry->value = ($entry->value ?? 0) + 10;
             return $entry;
         }
     };
 
-    $pm->installPlugin($plugin);
+    $plugin2 = new class ('doubler') extends Plugin {
+        public function processOne($entry)
+        {
+            $entry->value = ($entry->value ?? 0) * 2;
+            return $entry;
+        }
+    };
+
+    $pm->installPlugin($plugin1);
+    $pm->installPlugin($plugin2);
 
     $entries = [new \stdClass(), new \stdClass()];
     $result = $pm->processAll($entries);
 
+    // Each entry: 0 + 10 = 10, then 10 * 2 = 20
     expect($result)->toHaveCount(2)
-        ->and($result[0]->count)->toBe(1)
-        ->and($result[1]->count)->toBe(1);
+        ->and($result[0]->value)->toBe(20)
+        ->and($result[1]->value)->toBe(20);
 });
 
 it('returns entry unchanged when no plugins installed', function () {
@@ -99,4 +107,26 @@ it('chains templateParamFilter through all plugins', function () {
     $result = $pm->templateParamFilter($params);
 
     expect($result->filtered)->toBeTrue();
+});
+
+it('chains contentFilter through plugins', function () {
+    $config = new Config(['site.name' => 'Test']);
+    $pm = new PluginManager($config);
+
+    $plugin = new class ('filter') extends Plugin {
+        public function contentFilter($content)
+        {
+            $content->html = str_replace('foo', 'bar', $content->html);
+            return $content;
+        }
+    };
+
+    $pm->installPlugin($plugin);
+
+    $content = new \stdClass();
+    $content->html = 'hello foo world';
+
+    $result = $pm->contentFilter($content);
+
+    expect($result->html)->toBe('hello bar world');
 });

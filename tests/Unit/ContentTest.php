@@ -6,7 +6,6 @@ use CR\Content;
 beforeEach(function () {
     $this->config = new Config([
         'site.url' => 'https://example.com',
-        'options.reading_wpm' => 238,
     ]);
     $this->contentConfig = ['base' => '/posts'];
 });
@@ -64,7 +63,8 @@ it('calculates word count and reading time', function () {
     $content->calculate();
 
     expect($content->words)->toBe(500)
-        ->and($content->readingTime)->toBeString();
+        ->and($content->readingTime)->not->toBeEmpty()
+        ->and($content->readingTime)->toContain('minute');
 });
 
 it('calculates URL from config base', function () {

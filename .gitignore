@@ -13,3 +13,5 @@ _site/config/site.local.yaml
 _site/config/menus.local.yaml
 .crossroadsinit
 _site/.git
+_archive/
+_public/

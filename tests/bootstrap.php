@@ -24,3 +24,5 @@ define('CROSSROADS_CORE_DIR', CROSSROADS_BASE_DIR . '/vendor/duanestorey/crossro
 define('CROSSROADS_SRC_DIR', CROSSROADS_CORE_DIR . '/src');
 define('CROSSROADS_LOCALE_DIR', CROSSROADS_CORE_DIR . '/i18n');
 define('CROSSROADS_IS_COMPOSER', true);
+
+CR\International::instance()->loadLocaleFile(CROSSROADS_LOCALE_DIR . '/en.yaml');
