@@ -1,0 +1,22 @@
+name: Draft Guard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check-drafts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fail if draft pages are present
+        run: |
+          if grep -rl '<meta name="crossroads-draft" content="true">' public/ 2>/dev/null; then
+            echo "::error::Draft pages found in public/ — remove them before deploying."
+            exit 1
+          fi
+          echo "No drafts found. Safe to deploy."
