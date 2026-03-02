@@ -65,12 +65,25 @@ Crossroads uses a two-package split (Laravel-style):
 
 ### Core Engine Location
 
-The core engine always lives at `vendor/duanestorey/crossroads-core/` (installed from Packagist). There is no local `core/` directory — to develop the engine, work in the `duanestorey/crossroads-core` repo directly.
+The core engine always lives at `vendor/duanestorey/crossroads-core/` (installed from Packagist or symlinked in dev mode). There is no local `core/` directory.
 
 - `CROSSROADS_CORE_DIR` → `vendor/duanestorey/crossroads-core/`
 - `CROSSROADS_IS_COMPOSER` → `true`
 
 End users install with `composer create-project duanestorey/crossroads my-blog` and upgrade core via `composer update`. Dev tool configs (PHPStan, CS Fixer, PHPUnit) all point to the vendor path.
+
+### What Lives Where
+
+| This repo (`crossroads`) | Core repo (`crossroads-core`) |
+|---------------------------|-------------------------------|
+| `crossroads` entry script | `src/` — all `CR\` namespace classes |
+| `_content/` — user markdown content | `plugins/` — built-in plugins (`CR\Plugins\`) |
+| `_config/` — site.yaml, menus.yaml | `themes/` — bundled themes (lumen, simple) |
+| `composer.json` — project deps | `schemas/` — SQLite schema files |
+| `tests/` — Pest test suite | `i18n/` — locale YAML files (en, es) |
+| Dev tool configs (phpstan, cs-fixer, etc.) | `composer.json` — library package definition |
+
+**Rule of thumb**: If you're changing PHP classes, templates, plugins, or themes, that's the core repo. If you're changing content, config, tests, dev tooling, or the entry script, that's this repo.
 
 ### Local Core Development
 
@@ -90,6 +103,8 @@ composer update
 
 The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-stability": "dev"` and `"prefer-stable": true`, so the path repo's `dev-main` branch satisfies the constraint. Both `composer.dev.json` and `composer.dev.lock` are gitignored.
 
+**Important**: `composer.dev.json` is a full copy of `composer.json` (not a partial overlay — `COMPOSER` env var replaces, not merges). If you add dependencies or scripts to `composer.json`, update `composer.dev.json` to match.
+
 ### Key Constants
 
 | Constant | Purpose |
@@ -105,9 +120,9 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 
 ### Build Pipeline
 
-`Engine` (`core/src/Engine.php`) is the CLI entry point and command router. It dispatches to:
+`Engine` (`src/Engine.php` in core) is the CLI entry point and command router. It dispatches to:
 
-`Builder` (`core/src/Builder.php`) which orchestrates the full build:
+`Builder` (`src/Builder.php` in core) which orchestrates the full build:
 1. Sets up theme and loads menus from `_config/menus.yaml`
 2. Initializes Latte template engine
 3. `Entries` loads all `.md` files from `_content/<type>/`, parses YAML front matter via `Markdown`, creates `Content` objects
@@ -119,45 +134,45 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 
 ### Content Model
 
-`Content` (`core/src/Content.php`) holds a single entry's data: title, slug, dates, HTML, taxonomy, image info, reading time. Created from markdown front matter by `Entries`.
+`Content` (`src/Content.php` in core) holds a single entry's data: title, slug, dates, HTML, taxonomy, image info, reading time. Created from markdown front matter by `Entries`.
 
-`Entries` (`core/src/Entries.php`) manages the full collection — loading, taxonomy organization, and retrieval by type/taxonomy/term.
+`Entries` (`src/Entries.php` in core) manages the full collection — loading, taxonomy organization, and retrieval by type/taxonomy/term.
 
 ### Configuration
 
-`_config/site.yaml` is loaded by `Config` (`core/src/Config.php`) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
+`_config/site.yaml` is loaded by `Config` (`src/Config.php` in core) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
 
 Key config sections: `site.*` (metadata, theme), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
 
 ### Theme System
 
-Themes live in `core/themes/` (bundled) or `_themes/` (local). Each theme has:
+Themes live in `themes/` (bundled, in core) or `_themes/` (local). Each theme has:
 - `theme.yaml` — name, author, asset bundles (CSS/SCSS/JS lists), images
 - `.latte` templates — `index.latte`, `*-single.latte`, `header.latte`, `footer.latte`, etc.
 - `assets/` — CSS, SCSS, JS, images
 
-`Theme` (`core/src/Theme.php`) handles asset compilation (SCSS→CSS via scssphp), concatenation, and copying. Supports parent/child theme inheritance.
+`Theme` (`src/Theme.php` in core) handles asset compilation (SCSS→CSS via scssphp), concatenation, and copying. Supports parent/child theme inheritance.
 
-`TemplateEngine` (`core/src/TemplateEngine.php`) wraps Latte with a custom `LatteFileLoader` that resolves templates across multiple theme directories.
+`TemplateEngine` (`src/TemplateEngine.php` in core) wraps Latte with a custom `LatteFileLoader` that resolves templates across multiple theme directories.
 
 ### Plugin System
 
-`Plugin` base class (`core/src/Plugin.php`) provides three hooks:
+`Plugin` base class (`src/Plugin.php` in core) provides three hooks:
 - `processOne($entry)` — modify a single Content entry
 - `processAll($entries)` — modify the full entry collection
 - `templateParamFilter($params)` — modify template rendering parameters
 
-`PluginManager` (`core/src/PluginManager.php`) chains installed plugins. Built-in plugins in `core/plugins/` (`CR\Plugins\` namespace): `SeoPlugin`, `WordPressPlugin`.
+`PluginManager` (`src/PluginManager.php` in core) chains installed plugins. Built-in plugins in `plugins/` (in core) (`CR\Plugins\` namespace): `SeoPlugin`, `WordPressPlugin`.
 
 ### Rendering
 
-`Renderer` (`core/src/Renderer.php`) takes Content objects and template engine, generates HTML pages. Supports page types: HOME, TAXONOMY, CONTENT, AUTHOR. Handles pagination and provides standard template variables (`$site`, `$page`, `$menu`, `$content`, `$pagination`, `$isSingle`, `$isHome`).
+`Renderer` (`src/Renderer.php` in core) takes Content objects and template engine, generates HTML pages. Supports page types: HOME, TAXONOMY, CONTENT, AUTHOR. Handles pagination and provides standard template variables (`$site`, `$page`, `$menu`, `$content`, `$pagination`, `$isSingle`, `$isHome`).
 
 ### Supporting Systems
 
-- **Database**: SQLite (`core/src/DB.php`) — content/taxonomy storage and caching, schemas in `core/schemas/`
+- **Database**: SQLite (`src/DB.php` in core) — content/taxonomy storage and caching, schemas in `schemas/` (in core)
 - **Logging**: Singleton `Log` class with shell and file listeners, global `LOG()` function
-- **i18n**: YAML locale files in `core/i18n/` (en, es), accessed via `_i18n('key')`
+- **i18n**: YAML locale files in `i18n/` (en, es, in core), accessed via `_i18n('key')`
 - **Image Processing**: `ImageProcessor` generates responsive sizes, WebP/AVIF conversion via GD
 - **WordPress Import**: `Importers\WordPress` fetches via REST API, converts HTML→Markdown
 
@@ -172,12 +187,23 @@ Themes live in `core/themes/` (bundled) or `_themes/` (local). Each theme has:
 
 ## Release Process
 
-When cutting a new version release:
+### Releasing this repo (`crossroads`)
 
 1. **Update version** — Set `CROSSROADS_VERSION` in the `crossroads` entry script to the new version number
 2. **Update changelog** — In `CHANGELOG.md`, replace `[Unreleased]` with `[X.Y.Z] - YYYY-MM-DD` using today's date. Add a new `## [Unreleased]` section above it for future changes
 3. **Run checks** — `composer check` must pass clean (code style, PHPStan, Pest tests)
 4. **Commit** — Commit with a message like `Release vX.Y.Z`
-5. **Tag** — `git tag vX.Y.Z` and push tag; GitHub Actions release workflow creates the GitHub Release automatically
+5. **Tag** — `git tag -a vX.Y.Z -m "Release vX.Y.Z"` and push tag; GitHub Actions release workflow creates the GitHub Release automatically
 
-The changelog follows [Keep a Changelog](https://keepachangelog.com/) format with these categories: Security, Added, Changed, Fixed, Removed. During development, new entries go under `[Unreleased]`.
+### Releasing core (`crossroads-core`)
+
+1. Make changes in the core repo (either directly or via the symlink in dev mode)
+2. Run checks from this repo to validate: `composer check`
+3. Commit and tag in the core repo: `git tag -a vX.Y.Z -m "Release vX.Y.Z"` and push
+4. After Packagist picks up the new tag, run `composer update duanestorey/crossroads-core` in this repo to pull it
+
+### Notes
+
+- The changelog follows [Keep a Changelog](https://keepachangelog.com/) format with categories: Security, Added, Changed, Fixed, Removed. During development, new entries go under `[Unreleased]`.
+- Tags must be annotated (`git tag -a`) — lightweight tags will fail due to git hooks.
+- PHPStan may hit the default 128M memory limit. If `composer lint` fails with a memory error, run directly: `vendor/bin/phpstan analyse --memory-limit=512M`
