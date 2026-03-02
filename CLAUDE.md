@@ -56,6 +56,33 @@ composer lint
 composer test
 ```
 
+## Distribution Architecture
+
+Crossroads uses a two-package split (Laravel-style):
+
+- **`duanestorey/crossroads`** (this repo) — skeleton/project template with user content, config, CLI script
+- **`duanestorey/crossroads-core`** (`core/` directory) — engine library with src, plugins, themes, schemas, i18n
+
+### Dev Layout vs Installed Layout
+
+In the dev repo, `core/` lives at the project root. Composer's path repository symlinks `vendor/duanestorey/crossroads-core` → `./core`. The entry script auto-detects core location:
+
+- `CROSSROADS_CORE_DIR` → `core/` (dev) or `vendor/duanestorey/crossroads-core/` (installed)
+- `CROSSROADS_IS_COMPOSER` → `false` (dev) or `true` (installed via `composer create-project`)
+
+End users install with `composer create-project duanestorey/crossroads my-blog` and upgrade core via `composer update`.
+
+### Key Constants
+
+| Constant | Purpose |
+|----------|---------|
+| `CROSSROADS_BASE_DIR` | Project root directory |
+| `CROSSROADS_CORE_DIR` | Core engine directory (auto-detected) |
+| `CROSSROADS_SRC_DIR` | Core source (`CORE_DIR/src`) |
+| `CROSSROADS_CONTENT_DIR` | User content (`BASE_DIR/_content`) |
+| `CROSSROADS_CONFIG_DIR` | User config (`BASE_DIR/_config`) |
+| `CROSSROADS_IS_COMPOSER` | Whether this is a Composer-managed installation |
+
 ## Architecture
 
 ### Build Pipeline
@@ -82,7 +109,7 @@ composer test
 
 `_config/site.yaml` is loaded by `Config` (`core/src/Config.php`) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
 
-Key config sections: `site.*` (metadata, theme), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings), `dirs.*` (path overrides).
+Key config sections: `site.*` (metadata, theme), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
 
 ### Theme System
 
@@ -133,5 +160,6 @@ When cutting a new version release:
 2. **Update changelog** — In `CHANGELOG.md`, replace `[Unreleased]` with `[X.Y.Z] - YYYY-MM-DD` using today's date. Add a new `## [Unreleased]` section above it for future changes
 3. **Run checks** — `composer check` must pass clean (code style, PHPStan, Pest tests)
 4. **Commit** — Commit with a message like `Release vX.Y.Z`
+5. **Tag** — `git tag vX.Y.Z` and push tag; GitHub Actions release workflow creates the GitHub Release automatically
 
 The changelog follows [Keep a Changelog](https://keepachangelog.com/) format with these categories: Security, Added, Changed, Fixed, Removed. During development, new entries go under `[Unreleased]`.

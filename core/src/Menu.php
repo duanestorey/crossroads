@@ -9,7 +9,7 @@ class Menu
 
     public function __construct()
     {
-        $this->menuFile = \CROSSROADS_BASE_DIR . '/_config/menus.yaml';
+        $this->menuFile = \CROSSROADS_CONFIG_DIR . '/menus.yaml';
     }
 
     public function loadMenus()

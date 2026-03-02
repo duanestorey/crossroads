@@ -42,7 +42,7 @@ class Builder
             $this->templateEngine->setTemplateDirs(
                 [
                    CROSSROADS_LOCAL_THEME_DIR . '/' . $this->theme->getChildThemeName(),
-                   CROSSROADS_BASE_DIR . '/' . $this->config->get('dirs.core_themes', 'core/themes') . '/' . $this->theme->getParentThemeName(),
+                   CROSSROADS_CORE_DIR . '/themes/' . $this->theme->getParentThemeName(),
                 ]
             );
         } else {
@@ -55,7 +55,7 @@ class Builder
             } else {
                 $this->templateEngine->setTemplateDirs(
                     [
-                        CROSSROADS_BASE_DIR . '/' . $this->config->get('dirs.core_themes', 'core/themes') . '/' . $this->config->get('site.theme'),
+                        CROSSROADS_CORE_DIR . '/themes/' . $this->config->get('site.theme'),
                     ]
                 );
             }
@@ -85,7 +85,7 @@ class Builder
                 Utils::mkdir($image_destination_path);
 
                 // Where the source content is
-                $content_directory = \CROSSROADS_BASE_DIR . '/content/' . $contentType;
+                $content_directory = \CROSSROADS_CONTENT_DIR . '/' . $contentType;
 
                 foreach ($entries as $entry) {
                     LOG('Writing content for [' . $entry->relUrl . ']', 2, Log::DEBUG);
@@ -240,7 +240,7 @@ class Builder
     {
         $this->theme = new Theme(
             $this->config->get('site.theme'),
-            CROSSROADS_BASE_DIR . '/' . $this->config->get('dirs.core_themes', 'core/themes'),
+            CROSSROADS_CORE_DIR . '/themes',
             CROSSROADS_LOCAL_THEME_DIR
         );
 

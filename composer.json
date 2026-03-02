@@ -2,26 +2,19 @@
     "name": "duanestorey/crossroads",
     "description": "Crossroads Static Site Generator",
     "license": "GPL-3.0-or-later",
+    "type": "project",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./core",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": ">=8.4",
-        "symfony/yaml": "^7.1",
-        "latte/latte": "^3.0",
-        "erusev/parsedown": "^1.7",
-        "league/html-to-markdown": "^5.1",
-        "scssphp/scssphp": "^1.13",
-        "mallardduck/html-formatter": "^1.0",
-        "duncan3dc/fork-helper": "^2.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "CR\\": "core/src/",
-            "CR\\Plugins\\": "core/plugins/"
-        },
-        "files": [
-            "core/src/Log.php",
-            "core/src/International.php",
-            "core/src/Content.php"
-        ]
+        "duanestorey/crossroads-core": "^1.0"
     },
     "autoload-dev": {
         "psr-4": {

@@ -374,8 +374,8 @@ class Engine
             $importer = $argv[ 2 ];
             $url = $argv[ 3 ];
 
-            if (file_exists('core/src/importers/' . $importer . '.php')) {
-                require_once('core/src/importers/' . $importer . '.php');
+            if (file_exists(CROSSROADS_SRC_DIR . '/importers/' . $importer . '.php')) {
+                require_once(CROSSROADS_SRC_DIR . '/importers/' . $importer . '.php');
 
                 $importer = new Importers\WordPress();
                 $importer->import(Utils::fixPath($url));

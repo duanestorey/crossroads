@@ -8,7 +8,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Running PHPStan..."
-vendor/bin/phpstan analyse --no-progress --quiet
+php -d memory_limit=512M vendor/bin/phpstan analyse --no-progress --quiet
 if [ $? -ne 0 ]; then
     echo "PHPStan found errors. Run 'composer lint' to see details."
     exit 1
