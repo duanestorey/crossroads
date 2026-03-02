@@ -12,10 +12,10 @@ Crossroads is a PHP CLI static site generator. Markdown files with YAML front ma
 # Install dependencies
 composer install
 
-# Build the static site (output goes to _public/)
+# Build the static site (output goes to _site/public/)
 php crossroads build
 
-# Run local dev server (serves _public/)
+# Run local dev server (serves _site/public/, includes drafts)
 php crossroads serve
 
 # Create new content
@@ -77,8 +77,10 @@ End users install with `composer create-project duanestorey/crossroads my-blog` 
 | This repo (`crossroads`) | Core repo (`crossroads-core`) |
 |---------------------------|-------------------------------|
 | `crossroads` entry script | `src/` — all `CR\` namespace classes |
-| `_site/content/` — user markdown content | `plugins/` — built-in plugins (`CR\Plugins\`) |
-| `_site/config/` — site.yaml, menus.yaml | `themes/` — bundled themes (lumen, simple) |
+| `_site/` — separate git repo (content + build output) | `plugins/` — built-in plugins (`CR\Plugins\`) |
+| `_site/content/` — user markdown content | `themes/` — bundled themes (lumen, simple, phosphor) |
+| `_site/config/` — site.yaml, menus.yaml | |
+| `_site/public/` — build output (HTML, assets) | |
 | `composer.json` — project deps | `schemas/` — SQLite schema files |
 | `tests/` — Pest test suite | `i18n/` — locale YAML files (en, es) |
 | Dev tool configs (phpstan, cs-fixer, etc.) | `composer.json` — library package definition |
@@ -115,6 +117,7 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 | `CROSSROADS_SITE_DIR` | Site directory (`BASE_DIR/_site`) |
 | `CROSSROADS_CONTENT_DIR` | User content (`BASE_DIR/_site/content`) |
 | `CROSSROADS_CONFIG_DIR` | User config (`BASE_DIR/_site/config`) |
+| `CROSSROADS_PUBLIC_DIR` | Build output (`BASE_DIR/_site/public`) |
 | `CROSSROADS_IS_COMPOSER` | Whether this is a Composer-managed installation |
 
 ## Architecture
@@ -143,7 +146,7 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 
 `_site/config/site.yaml` is loaded by `Config` (`src/Config.php` in core) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
 
-Key config sections: `site.*` (metadata, theme), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
+Key config sections: `site.*` (metadata, theme, bio, social links), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
 
 ### Theme System
 
@@ -168,6 +171,21 @@ Themes live in `themes/` (bundled, in core) or `_themes/` (local). Each theme ha
 ### Rendering
 
 `Renderer` (`src/Renderer.php` in core) takes Content objects and template engine, generates HTML pages. Supports page types: HOME, TAXONOMY, CONTENT, AUTHOR. Handles pagination and provides standard template variables (`$site`, `$page`, `$menu`, `$content`, `$pagination`, `$isSingle`, `$isHome`).
+
+### Draft Handling
+
+- `php crossroads build` — skips drafts; any stale draft HTML from a previous build is automatically deleted
+- `php crossroads serve` — includes drafts with a visual banner and `<meta name="crossroads-draft" content="true">` tag
+- Drafts are always excluded from `sitemap.xml`
+- The `_site` repo has a GitHub Actions draft-guard workflow that warns if draft HTML is present in `public/`
+
+### Deployment
+
+Build output goes to `_site/public/`. The `_site/` directory is a separate git repo (`duanestorey/duanestorey.com`) deployed via Cloudflare Pages from the `main` branch, serving from `public/`.
+
+Deployment workflow:
+1. `php crossroads build` — generates clean output (no drafts)
+2. `cd _site && git add -u && git commit && git push` — deploys to Cloudflare
 
 ### Supporting Systems
 
