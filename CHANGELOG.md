@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-03-03
+
+### Fixed
+- Remove invalid `LLMsTxt` directive from robots.txt
+- Add visually-hidden post titles to "read more" links for SEO
+- Add preconnect for cdn.jsdelivr.net and use minified Nerd Fonts CSS
+- Align index page entry dates to top of title text
+- Uppercase date formatting on index pages
+
+### Changed
+- Add Nerd Font icons to sidebar, post meta, tags, pagination, footer, and 404 page
+
 ## [2.1.0] - 2026-03-02
 
 ### Added
