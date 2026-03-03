@@ -17,6 +17,15 @@ it('returns false as default when no default specified', function () {
     expect($config->get('site.missing'))->toBeFalse();
 });
 
+it('does not log warning when default is provided for missing key', function () {
+    $config = new Config(['site.name' => 'Test Site']);
+    // Should return the default silently without triggering a LOG warning
+    $result = $config->get('options.include_drafts', false);
+    expect($result)->toBeFalse();
+    $result2 = $config->get('options.missing', 'default_value');
+    expect($result2)->toBe('default_value');
+});
+
 it('handles null config gracefully', function () {
     $config = new Config(null);
     expect($config->get('anything', 'default'))->toBe('default');
