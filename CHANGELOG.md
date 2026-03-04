@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-03-04
+
+### Added
+- 14 new test files covering all previously untested core classes: Builder, ContentDiscoverImages, DevServer, Engine, FileWatcher, ImageProcessor, International, LatteFileLoader, Renderer, SASS, SQLite, TemplateEngine, Theme, Upgrade
+- Bootstrap assertion for `CROSSROADS_CORE_DIR` existence for fast failure diagnostics
+- Test count: 116 → 241 (+125 tests, +184 assertions)
+
+### Changed
+- Refactor `LlmsTxtTest` to test real `Builder::sanitizeDescription()` method instead of duplicating inline logic
+
+### Fixed
+- Move completed TODO docs (005, 007, 009) from `docs/todo/` to `docs/done/`
+
 ## [2.1.1] - 2026-03-03
 
 ### Fixed
