@@ -7,6 +7,30 @@ site:
   lang: "en"
   charset: "utf-8"
   home: "posts"
+  projects:
+    Chimera:
+      description: "Containerized RNA analysis pipeline"
+      icon: "nf-mdi-dna"
+    OpenDCAD:
+      description: "Scriptable 3D modelling engine"
+      url: "https://github.com/duanestorey/opendcad"
+      icon: "nf-fa-cube"
+    Hi-Fi Amplifier:
+      description: "2.1 channel amplifier with DSP crossovers"
+      url: "/building-a-custom-hi-fi-5-1-amplifier-with-dts-dolby-decoding.html"
+      icon: "nf-fa-music"
+    Polymerase:
+      description: "RNA-seq TE quantification tool"
+      url: "https://github.com/duanestorey/polymerase"
+      icon: "nf-mdi-dna"
+    Crossroads:
+      description: "PHP static site generator"
+      url: "https://github.com/duanestorey/crossroads"
+      icon: "nf-mdi-sign_direction"
+    Claude Monitor:
+      description: "Claude API budget tracking"
+      url: "https://github.com/duanestorey/claude-monitor"
+      icon: "nf-fa-bar_chart"
 content:
   pages:
     index: false
