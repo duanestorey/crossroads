@@ -25,4 +25,6 @@ define('CROSSROADS_SRC_DIR', CROSSROADS_CORE_DIR . '/src');
 define('CROSSROADS_LOCALE_DIR', CROSSROADS_CORE_DIR . '/i18n');
 define('CROSSROADS_IS_COMPOSER', true);
 
+assert(is_dir(CROSSROADS_CORE_DIR), 'Core engine not found at ' . CROSSROADS_CORE_DIR . '. Run composer install.');
+
 CR\International::instance()->loadLocaleFile(CROSSROADS_LOCALE_DIR . '/en.yaml');
