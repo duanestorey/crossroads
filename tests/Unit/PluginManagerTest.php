@@ -19,7 +19,7 @@ it('chains processOne through all plugins', function () {
     $pm = new PluginManager($config);
 
     $plugin1 = new class ('p1') extends Plugin {
-        public function processOne($entry)
+        public function processOne(mixed $entry): mixed
         {
             $entry->processed[] = 'plugin1';
             return $entry;
@@ -27,7 +27,7 @@ it('chains processOne through all plugins', function () {
     };
 
     $plugin2 = new class ('p2') extends Plugin {
-        public function processOne($entry)
+        public function processOne(mixed $entry): mixed
         {
             $entry->processed[] = 'plugin2';
             return $entry;
@@ -50,7 +50,7 @@ it('chains processAll through two mutating plugins cumulatively', function () {
     $pm = new PluginManager($config);
 
     $plugin1 = new class ('adder') extends Plugin {
-        public function processOne($entry)
+        public function processOne(mixed $entry): mixed
         {
             $entry->value = ($entry->value ?? 0) + 10;
             return $entry;
@@ -58,7 +58,7 @@ it('chains processAll through two mutating plugins cumulatively', function () {
     };
 
     $plugin2 = new class ('doubler') extends Plugin {
-        public function processOne($entry)
+        public function processOne(mixed $entry): mixed
         {
             $entry->value = ($entry->value ?? 0) * 2;
             return $entry;
@@ -94,7 +94,7 @@ it('chains templateParamFilter through all plugins', function () {
     $pm = new PluginManager($config);
 
     $plugin = new class ('test') extends Plugin {
-        public function templateParamFilter($params)
+        public function templateParamFilter(mixed $params): mixed
         {
             $params->filtered = true;
             return $params;
@@ -114,7 +114,7 @@ it('chains contentFilter through plugins', function () {
     $pm = new PluginManager($config);
 
     $plugin = new class ('filter') extends Plugin {
-        public function contentFilter($content)
+        public function contentFilter(mixed $content): mixed
         {
             $content->html = str_replace('foo', 'bar', $content->html);
             return $content;

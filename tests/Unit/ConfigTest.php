@@ -12,9 +12,9 @@ it('returns default when key is missing', function () {
     expect($config->get('site.missing', 'fallback'))->toBe('fallback');
 });
 
-it('returns false as default when no default specified', function () {
+it('returns null when no default specified for missing key', function () {
     $config = new Config(['site.name' => 'Test Site']);
-    expect($config->get('site.missing'))->toBeFalse();
+    expect($config->get('site.missing'))->toBeNull();
 });
 
 it('does not log warning when default is provided for missing key', function () {
