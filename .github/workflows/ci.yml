@@ -15,7 +15,13 @@ jobs:
         with:
           php-version: '8.4'
           extensions: gd, sqlite3
-      - run: COMPOSER=composer.dev.json composer install --no-progress
-      - run: COMPOSER=composer.dev.json composer cs-check
-      - run: COMPOSER=composer.dev.json composer lint
-      - run: COMPOSER=composer.dev.json composer test
+      - name: Configure Composer to use local core
+        run: |
+          composer config minimum-stability dev
+          composer config prefer-stable true
+          composer config repositories.core path ../crossroads-core
+          composer require duanestorey/crossroads-core:@dev --no-update
+      - run: composer install --no-progress
+      - run: composer cs-check
+      - run: composer lint
+      - run: composer test
