@@ -10,11 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: duanestorey/crossroads-core
+          path: ../crossroads-core
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: gd, sqlite3
-      - run: composer install --no-progress
-      - run: composer cs-check
-      - run: composer lint
-      - run: composer test
+      - run: COMPOSER=composer.dev.json composer install --no-progress
+      - run: COMPOSER=composer.dev.json composer cs-check
+      - run: COMPOSER=composer.dev.json composer lint
+      - run: COMPOSER=composer.dev.json composer test
