@@ -79,7 +79,7 @@ End users install with `composer create-project duanestorey/crossroads my-blog` 
 | `crossroads` entry script | `src/` — all `CR\` namespace classes |
 | `_site/` — separate git repo (content + build output) | `plugins/` — built-in plugins (`CR\Plugins\`) |
 | `_site/content/` — user markdown content | `themes/` — bundled themes (lumen, simple, phosphor) |
-| `_site/config/` — site.yaml, menus.yaml | |
+| `_site/config/` — site.yaml, menus.yaml (+ gitignored `.local.yaml` overrides) | |
 | `_site/public/` — build output (HTML, assets) | |
 | `composer.json` — project deps | `schemas/` — SQLite schema files |
 | `tests/` — Pest test suite | `i18n/` — locale YAML files (en, es) |
@@ -144,9 +144,18 @@ The dev config requires `"duanestorey/crossroads-core": "@dev"` with `"minimum-s
 
 ### Configuration
 
-`_site/config/site.yaml` is loaded by `Config` (`src/Config.php` in core) and accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
+Crossroads uses a two-layer config system with local overrides:
 
-Key config sections: `site.*` (metadata, theme, bio, social links), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
+- `_site/config/site.yaml` — committed to the skeleton repo, contains safe defaults and example values
+- `_site/config/site.local.yaml` — gitignored, contains real site-specific values (actual site name, URL, bio, social links, projects, etc.)
+
+At startup, `Engine::_loadConfig()` loads `site.yaml` first, then shallow-merges `site.local.yaml` on top (top-level keys in local replace the same keys in base). The same pattern applies to menus: `menus.yaml` is the committed base, `menus.local.yaml` is the gitignored override.
+
+Config is accessed via dot notation: `$config->get('site.name')`, `$config->get('content.posts.taxonomy')`.
+
+Key config sections: `site.*` (metadata, theme, bio, social links, projects), `content.*` (content type definitions with taxonomy mappings), `options.*` (debug, pagination, image settings).
+
+**Important**: When setting up a new dev environment, you must copy or recreate `site.local.yaml` and `menus.local.yaml` — they are not in version control. Without them, the site builds with placeholder values from `site.yaml`.
 
 ### Theme System
 
