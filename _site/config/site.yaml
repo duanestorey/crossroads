@@ -19,6 +19,10 @@ site:
       description: "2.1 channel amplifier with DSP crossovers"
       url: "/building-a-custom-hi-fi-5-1-amplifier-with-dts-dolby-decoding.html"
       icon: "nf-fa-music"
+    Marksmith:
+      description: "Modern git+SSG aware markdown editor"
+      url: "https://github.com/duanestorey/marksmith"
+      icon: "nf-fa-pencil"
     Polymerase:
       description: "RNA-seq TE quantification tool"
       url: "https://github.com/duanestorey/polymerase"
