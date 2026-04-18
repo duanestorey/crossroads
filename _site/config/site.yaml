@@ -3,6 +3,8 @@ site:
   url: 'https://mytestsite.com'
   description: 'This is a test site using the Crossroads SSG'
   home_description: 'Crossroads SSG is a state-of-the art static site generator written in PHP'
+  # AI content preferences — emitted as Content-Signal in robots.txt (contentsignals.org)
+  content_signals: 'ai-train=no, search=yes, ai-input=yes'
   theme: "phosphor"
   lang: "en"
   charset: "utf-8"
